@@ -1,11 +1,17 @@
 
+# 1.6
+# String Compression
+#
+# Implement a method to perform basic string compression using the
+# counts of repeated characters. For example, the string aabcccccaaa
+# would become a2blc5a3. If the "compressed" string would not become
+# smaller than the original string, your method should return the
+# original string. You can assume the string has only uppercase and
+# lowercase letters (a - z).
+#
 
-def fst (p) :
-    return p [0]
 
-
-def snd (p) :
-    return p [1]
+from common import fst, snd
 
 
 def sol1 (s : str) -> str :
@@ -18,17 +24,14 @@ def sol1 (s : str) -> str :
 
     for p in zip (l [:-1], l [1:]) :
 
-        if   fst (p) == None :
-            cur_char = snd (p)
-            counter = 1
-        elif fst (p) == snd (p) :
+        if fst (p) == snd (p) :
             counter = counter + 1
         else :
             result.append ((cur_char, counter))
             cur_char = snd (p)
             counter  = 1
 
-    result = ('').join (map (lambda p : fst (p) + str (snd (p)), result))
+    result = ('').join (map (lambda p : fst (p) + str (snd (p)), result [1:] ))
 
     if len (result) < len (s) :
         return result
